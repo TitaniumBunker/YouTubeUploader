@@ -13,7 +13,25 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.QueryParameter;
 
 import javax.servlet.ServletException;
+
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.googleapis.media.MediaHttpUploader;
+import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
+import com.google.api.client.http.InputStreamContent;
+//import com.google.api.services.samples.youtube.cmdline.Auth;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Video;
+import com.google.api.services.youtube.model.VideoSnippet;
+import com.google.api.services.youtube.model.VideoStatus;
+import com.google.common.collect.Lists;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+
 
 /**
  * Sample {@link Builder}.
@@ -35,33 +53,55 @@ import java.io.IOException;
 public class HelloWorldBuilder extends Builder {
 
     private final String name;
-
+    private final String video;
+    private final String oauthtoken;
+   
+    
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public HelloWorldBuilder(String name) {
+    public HelloWorldBuilder(String name, String video, String oauthtoken) {
         this.name = name;
+        this.video = video;
+        this.oauthtoken = oauthtoken;
     }
 
     /**
      * We'll use this from the <tt>config.jelly</tt>.
+     * @return 
      */
     public String getName() {
         return name;
     }
 
+    public String getVideo() {
+        return video;
+    }
+
+     public String getOauthtoken() {
+        return oauthtoken;
+    }
+    
+    
+    
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
         // This is where you 'build' the project.
         // Since this is a dummy, we just say 'hello world' and call that a build.
 
         // This also shows how you can consult the global configuration of the builder
-        if (getDescriptor().getUseFrench())
-            listener.getLogger().println("Bonjour, "+name+"!");
-        else
-            listener.getLogger().println("Hello, "+name+"!");
+        //if (getDescriptor().getUseFrench())
+        //    listener.getLogger().println("Bonjour, "+name+"!");
+        //else
+        //    listener.getLogger().println("Hello, "+name+"!");
+        
+         
+        
         return true;
     }
 
+    
+    
+    
     // Overridden for better type safety.
     // If your plugin doesn't really define any property on Descriptor,
     // you don't have to do this.
@@ -113,9 +153,10 @@ public class HelloWorldBuilder extends Builder {
 
         /**
          * This human readable name is used in the configuration screen.
+         * @return returns Youtube Upload
          */
         public String getDisplayName() {
-            return "Youtube Upload";
+            return "YouTube Upload";
         }
 
         @Override
@@ -134,6 +175,7 @@ public class HelloWorldBuilder extends Builder {
          *
          * The method name is bit awkward because global.jelly calls this method to determine
          * the initial state of the checkbox by the naming convention.
+         * @return True for whether or not it returns French,
          */
         public boolean getUseFrench() {
             return useFrench;

@@ -1,0 +1,13 @@
+<j:jelly 
+    xmlns:j="jelly:core" 
+    xmlns:st="jelly:stapler" 
+    xmlns:d="jelly:define" xmlns:l="/lib/layout" 
+    xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
+
+    <img height="42" width="42" src='${app.rootUrl}plugin/YouTubeUpload/images/3.png'></img>
+ 
+    <a href='${app.rootUrl}plugin/YouTubeUpload/EmbeddedPages/CreatingOauth.html' target="_blank">Find about creating Oauth tokens here.</a>
+    
+
+    
+</j:jelly>

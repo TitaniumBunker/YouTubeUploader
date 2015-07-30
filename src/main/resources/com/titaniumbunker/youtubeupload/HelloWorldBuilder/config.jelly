@@ -9,7 +9,22 @@
     Creates a text field that shows the value of the "name" property.
     When submitted, it will be passed to the corresponding constructor parameter.
   -->
-  <f:entry title="Name" field="name">
-    <f:textbox />
+  <f:entry title="Title" field="name">
+    <f:textbox default="Enter Title of Video"/>
   </f:entry>
+
+  <f:entry title="Video" field="video">
+    <f:textbox default="Enter Filename to upload"/>
+  </f:entry>
+  
+  
+  <f:entry title="OAuthToken" field="oauthtoken"  >
+    <f:textarea value="Paste JSON token Here"/>
+  </f:entry>
+  
+  
+  
+  
+  
+
 </j:jelly>
